@@ -28,8 +28,8 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginPage() {
+    @GetMapping(value = "login")
+    public String loginPage(User user) {
         return "login";
     }
 
@@ -56,13 +56,13 @@ public class UserController {
     }
 
     @GetMapping("/admin/{id}/edit")
-    public String edit(ModelMap model, @PathVariable("id") Long id) {
+    public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/edit";
     }
 
-    @PostMapping("/admin/{id}")
+    @PatchMapping("/admin/{id}")
     public String update(@ModelAttribute("user")User user,
                          @RequestParam("chooseRole") String[] chooseRole) {
 
@@ -71,20 +71,20 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/{id}/delete")
+    @DeleteMapping("/admin/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
 
     @GetMapping("/creat")
-    public String creatDefaultUsers(ModelMap model) {
+    public String creatDefaultUsers() {
         userService.creatDefaultUser();
         return "redirect:/admin";
     }
 
     @GetMapping("/user/show")
-    public String showUserByIdForUser(Principal principal, ModelMap model) {
+    public String showUserByIdForUser(Principal principal, Model model) {
         User user = userService.findByUserName(principal.getName());
         model.addAttribute("user", user);
         return "user/showUser";

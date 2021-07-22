@@ -28,7 +28,8 @@
                 <form th:action="@{/admin/{id}/edit(id=${user.getId()})}">
                     <input type="submit" value="Edit"/>
                 </form>
-                <form th:action="@{/admin/{id}/delete(id=${user.id})}">
+                <form th:method=DELETE
+                      th:action="@{/admin/{id}/delete(id=${user.id})}">
                     <input type="submit" value="Delete"/>
                 </form>
             </td>
