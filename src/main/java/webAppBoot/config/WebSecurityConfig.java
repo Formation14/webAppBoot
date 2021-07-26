@@ -54,17 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 // даем доступ к форме логина всем
                 .permitAll();
-
-        http.logout()
-                // разрешаем делать логаут всем
-                .permitAll()
-                // указываем URL логаута
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/login?logout")
-                //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
-                .and().csrf().disable();
-
         http
                 // делаем страницу регистрации недоступной для авторизированных пользователей
                 .csrf().disable()
@@ -75,11 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // защищенные URL
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin").hasAnyRole("ADMIN")
-                .antMatchers("/admin/new").hasAnyRole("ADMIN")
-                .antMatchers("/admin/{id}").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/users/**").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/users/**").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated();
     }

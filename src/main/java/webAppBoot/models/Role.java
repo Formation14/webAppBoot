@@ -1,28 +1,34 @@
 package webAppBoot.models;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String name;
 
-    @Override
-    public String getAuthority() {
-        return name;
-    }
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> userSet = new HashSet<>();
 
     @Override
     public String toString() {
         return name;
+    }
 
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 }

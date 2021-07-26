@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import webAppBoot.models.User;
 import webAppBoot.repository.UserRepository;
-
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +43,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(String[] role, User user) {
-
-        User u = getUserById(user.getId());
-        u.setUsername(user.getUsername());
+    public void updateUser(Long id, User user) {
+        User u = getUserById(id);
+        u.setName(user.getName());
         u.setAge(user.getAge());
         u.setEmail(u.getEmail());
         u.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -62,12 +61,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User getUserByName(Principal principal) {
+        return userRepository.findByName(principal.getName());
+    }
+
+    @Override
     public void creatDefaultUser() {
         roleService.setRolesDefault();
         User admin = new User();
         admin.setAge(26);
         admin.setEmail("paveltis@tut.by");
-        admin.setUsername("admin");
+        admin.setName("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.getRoles().add(roleService.getAdminRole());
         userRepository.save(admin);
@@ -75,24 +79,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User chooseRole(User user, String[] chooseRole) {
+    public void chooseRole(User user, String[] chooseRole) {
         for (String role : chooseRole) {
             if (role.contains("ROLE_USER")) {
-                user.getRoles().add(roleService.getDefaultRole());
+                user.getRoles().add(roleService.getUserRole());
             } else if (role.contains("ROLE_ADMIN")) {
                 user.getRoles().add(roleService.getAdminRole());
             }
         }
-        return user;
-    }
-
-    @Override
-    public User findByUserName(String name) {
-        return userRepository.findByUsername(name);
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return findByUserName(s);
+        User user = userRepository.findByName(s);
+        if (user == null) {
+            throw new UsernameNotFoundException("No user found with username: " + s);
+        }
+        return User.fromUser(user);
     }
 }
