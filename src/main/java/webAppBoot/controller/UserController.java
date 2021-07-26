@@ -29,7 +29,7 @@ public class UserController {
 
 
     @GetMapping(value = "login")
-    public String loginPage(User user) {
+    public String loginPage() {
         return "login";
     }
 
@@ -63,11 +63,12 @@ public class UserController {
     }
 
     @PatchMapping("/admin/{id}")
-    public String update(@ModelAttribute("user")User user,
+    public String update(@ModelAttribute("user") User user,
+                         @PathVariable("id") Long id,
                          @RequestParam("chooseRole") String[] chooseRole) {
 
         userService.chooseRole(user,chooseRole);
-        userService.updateUser(chooseRole,user);
+        userService.updateUser(id,user);
         return "redirect:/admin";
     }
 
@@ -85,7 +86,7 @@ public class UserController {
 
     @GetMapping("/user/show")
     public String showUserByIdForUser(Principal principal, Model model) {
-        User user = userService.findByUserName(principal.getName());
+        User user = userService.getUserByName(principal);
         model.addAttribute("user", user);
         return "user/showUser";
     }
