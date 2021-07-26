@@ -33,10 +33,9 @@ public class UserController {
 
     @GetMapping("/admin")
     public String index(Model model) {
-        model.addAttribute("roles",roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("roles",roleService.getAllRoles());
         model.addAttribute("addUser",new User());
-        model.addAttribute("roles",roleService.getUserRole());
         return "admin/list";
     }
 

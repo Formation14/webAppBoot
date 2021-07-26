@@ -19,34 +19,34 @@
 
 </head>
 <body>
-<!--<header>-->
-<!--    <div class="container-fluid bg-dark">-->
-<!--        <nav class="navbar navbar-expand-lg navbar-light bg-dark">-->
-<!--            <a class="navbar-brand text-white" href="#"><h5><span sec:authentication="name"></span></h5></a>-->
-<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
-<!--                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--                <span class="navbar-toggler-icon"></span>-->
-<!--            </button>-->
+<header>
+    <div class="container-fluid bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <a class="navbar-brand text-white" href="#"><h5><span sec:authentication="name"></span></h5></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<!--            <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--                <ul class="navbar-nav mr-auto">-->
-<!--                    <li class="nav-item active text-white-50">-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active text-white-50">
 
-<!--                        <h5>with roles:-->
-<!--                            <span sec:authorize="hasAnyRole('ROLE_ADMIN')">-->
-<!--                               ROLE_ADMIN-->
-<!--                            </span>-->
-<!--                            <span sec:authorize="hasAnyRole('ROLE_USER')">-->
-<!--                                ROLE_USER-->
-<!--                            </span>-->
-<!--                        </h5>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--                <a class="nav-link text-white-50" href="http://localhost:8080/login">Logout</a>-->
-<!--            </div>-->
-<!--        </nav>-->
-<!--    </div>-->
-<!--</header>-->
+                        <h5>with roles:
+                            <span sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                               ROLE_ADMIN
+                            </span>
+                            <span sec:authorize="hasAnyRole('ROLE_USER')">
+                                ROLE_USER
+                            </span>
+                        </h5>
+                    </li>
+                </ul>
+                <a class="nav-link text-white-50" href="http://localhost:8080/login">Logout</a>
+            </div>
+        </nav>
+    </div>
+</header>
 <div class="container-fluid">
     <div class="row">
         <div class="col-2">
@@ -96,7 +96,7 @@
                                         <td th:text="${user.age}"></td>
                                         <td th:text="${user.email}"></td>
                                         <td th:text="${user.password}"></td>
-                                        <td th:text="${user.roles}"></td>
+                                        <td th:text="${user.getRoles()}"></td>
 
                                         <td><a type="button" class="btn btn-primary" data-toggle="modal"
                                                th:attr="data-target='#edit' + ${user.getId()}">Edit</a>
@@ -147,12 +147,12 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Role:
-                                                <select multiple size="2" name="chooseRole" class="form-control">
-                                                    <option th:each="role : ${roles}" th:value="${roles}"
-                                                            th:text="${role.getName().substring(5)}">role
-                                                    </option>
-                                                </select>
+                                            <label for="chooseRole">Role:
+                                            <select multiple size="3" id="chooseRole" name="chooseRole" class="form-control">
+                                                <option th:each="role : ${roles}" th:value="${role}"
+                                                        th:text="${role.getName().substring(5)}">
+                                                </option>
+                                            </select>
                                             </label>
                                         </div>
                                         <button type="submit" class="btn btn-success col-2">Add new user</button>
@@ -201,10 +201,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="age" class="col-form-label">Age</label>
+                            <label for="age1" class="col-form-label">Age</label>
                             <input type="number" class="form-control mb-6 col-8"
-                                   id="age"
-                                   name="age"
+                                   id="age1"
+                                   name="age1"
                                    th:value="${user.getAge()}">
                         </div>
 
