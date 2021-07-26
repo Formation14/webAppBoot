@@ -1,11 +1,8 @@
 package webAppBoot.controller;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import webAppBoot.models.User;
 import webAppBoot.service.RoleService;
@@ -28,7 +25,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @GetMapping(value = "login")
     public String loginPage() {
         return "login";
     }
@@ -36,15 +33,18 @@ public class UserController {
 
     @GetMapping("/admin")
     public String index(Model model) {
+        model.addAttribute("roles",roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("addUser",new User());
+        model.addAttribute("roles",roleService.getUserRole());
         return "admin/list";
     }
 
-    @GetMapping("/admin/new")
-    public String newUser(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/list";
-    }
+//    @GetMapping("/admin/new")
+//    public String newUser(@ModelAttribute("user") User user, Model model) {
+//        model.addAttribute("roles", roleService.getAllRoles());
+//        return "admin/new";
+//    }
 
     @PostMapping("/admin")
     public String create(@ModelAttribute("user") User user,
@@ -55,37 +55,38 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/{id}/edit")
-    public String edit(ModelMap model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/list";
-    }
+//    @GetMapping("/admin/{id}/edit")
+//    public String edit(Model model, @PathVariable("id") Long id) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        model.addAttribute("roles", roleService.getAllRoles());
+//        return "admin/edit";
+//    }
 
-    @PostMapping("/admin/{id}")
-    public String update(@ModelAttribute("user")User user,
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("addUser") User user,
+                         @PathVariable("id") Long id,
                          @RequestParam("chooseRole") String[] chooseRole) {
 
         userService.chooseRole(user,chooseRole);
-        userService.updateUser(chooseRole,user);
+        userService.updateUser(id,user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/{id}/delete")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
 
     @GetMapping("/creat")
-    public String creatDefaultUsers(ModelMap model) {
+    public String creatDefaultUsers() {
         userService.creatDefaultUser();
         return "redirect:/admin";
     }
 
-    @GetMapping("/user/show")
-    public String showUserByIdForUser(Principal principal, ModelMap model) {
-        User user = userService.findByUserName(principal.getName());
+    @GetMapping("/user")
+    public String showUserByIdForUser(Principal principal, Model model) {
+        User user = userService.getUserByName(principal);
         model.addAttribute("user", user);
         return "user/showUser";
     }
