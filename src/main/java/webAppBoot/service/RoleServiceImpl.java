@@ -2,11 +2,9 @@ package webAppBoot.service;
 
 import org.springframework.stereotype.Service;
 import webAppBoot.models.Role;
+import webAppBoot.models.User;
 import webAppBoot.repository.RoleRepository;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {

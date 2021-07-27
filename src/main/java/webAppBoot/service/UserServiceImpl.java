@@ -10,6 +10,7 @@ import webAppBoot.repository.UserRepository;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -73,6 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         admin.setEmail("paveltis@tut.by");
         admin.setName("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
+        admin.getRoles().add(roleService.getUserRole());
         admin.getRoles().add(roleService.getAdminRole());
         userRepository.save(admin);
 
