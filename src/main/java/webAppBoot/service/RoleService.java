@@ -10,8 +10,6 @@ public interface RoleService {
 
     List<Role> getAllRoles();
 
-    Set<Role> getRoleSet(Set<String> roles);
-
     Role getUserRole();
 
     Role getAdminRole();

@@ -26,11 +26,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Set<Role> getRoleSet(Set<String> roles) {
-        return new HashSet<>(getAllRoles());
-    }
-
-    @Override
     public Role getUserRole() {
         return getRoleByName(ROLE_USER);
     }
