@@ -54,7 +54,7 @@
                 <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list"
                    href="/admin" role="tab" sec:authorize="hasRole('ROLE_ADMIN')" aria-controls="home">Admin</a>
                 <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
-                   href="/user" sec:authorize="hasRole('ROLE_USER')" role="tab" aria-controls="profile">User</a>
+                   href="/user" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" role="tab" aria-controls="profile">User</a>
             </div>
         </div>
         <div class="col-10 p-5 mb-2 bg-light">
@@ -96,7 +96,7 @@
                                         <td th:text="${user.age}"></td>
                                         <td th:text="${user.email}"></td>
                                         <td th:text="${user.password}"></td>
-                                        <td th:text="${user.getRoles()}"></td>
+                                        <td th:text="${user.roles}"></td>
 
                                         <td><a type="button" class="btn btn-primary" data-toggle="modal"
                                                th:attr="data-target='#edit' + ${user.getId()}">Edit</a>
@@ -148,11 +148,12 @@
 
                                         <div class="form-group">
                                             <label for="chooseRole">Role:
-                                            <select multiple size="3" id="chooseRole" name="chooseRole" class="form-control">
-                                                <option th:each="role : ${roles}" th:value="${role}"
-                                                        th:text="${role.getName().substring(5)}">
-                                                </option>
-                                            </select>
+                                                <select multiple size="2" id="chooseRole" name="chooseRole" class="form-control"
+                                                        style="text-align: center; margin-left: auto; margin-right: auto; width: 380px">
+                                                    <option th:each="role : ${roles}" th:value="${role}"
+                                                            th:text="${role.getName().substring(5)}">
+                                                    </option>
+                                                </select>
                                             </label>
                                         </div>
                                         <button type="submit" class="btn btn-success col-2">Add new user</button>
@@ -225,11 +226,12 @@
                                    th:value="${user.getPassword()}">
                         </div>
 
-                        <div>
-                            <label>Role:
-                                <select multiple size="2" name="chooseRole" class="form-control">
-                                    <option th:each="role : ${roles}" th:value="${roles}"
-                                            th:text="${role.getName().substring(5)}">role
+                        <div class="form-group">
+                            <label for="chooseRole">Role:
+                                <select multiple size="2" name="chooseRole" class="form-control"
+                                        style="text-align: center; margin-left: auto; margin-right: auto; width: 340px">
+                                    <option th:each="role : ${roles}" th:value="${role}"
+                                            th:text="${role.getName().substring(5)}">
                                     </option>
                                 </select>
                             </label>
@@ -272,7 +274,7 @@
 
                         <div class="form-group">
                             <label for="firstNameDel" class="col-form-label">Name</label>
-                            <input type="text" class="form-control mb-6 col-8"
+                            <input type="text" class="form-control mb-6 col-8" disabled
                                    id="firstNameDel"
                                    name="firstName"
                                    th:value="${user.getName()}">
@@ -280,7 +282,7 @@
 
                         <div class="form-group">
                             <label for="age" class="col-form-label">Age</label>
-                            <input type="number" class="form-control mb-6 col-8"
+                            <input type="number" class="form-control mb-6 col-8" disabled
                                    id="age"
                                    name="age"
                                    th:value="${user.getAge()}">
@@ -288,7 +290,7 @@
 
                         <div class="form-group">
                             <label for="emailDel" class="col-form-label">Email</label>
-                            <input type="text" class="form-control mb-6 col-8"
+                            <input type="text" class="form-control mb-6 col-8" disabled
                                    id="emailDel"
                                    name="email"
                                    th:value="${user.getEmail()}">
@@ -296,17 +298,18 @@
 
                         <div class="form-group">
                             <label for="passwordDel" class="col-form-label">Password</label>
-                            <input type="text" class="form-control mb-6 col-8"
+                            <input type="text" class="form-control mb-6 col-8" disabled
                                    id="passwordDel"
                                    name="password"
                                    th:value="${user.getPassword()}">
                         </div>
 
-                        <div>
-                            <label>Role:
-                                <select multiple size="2" name="chooseRole" class="form-control">
-                                    <option th:each="role : ${roles}" th:value="${roles}"
-                                            th:text="${role.getName().substring(5)}">role
+                        <div class="form-group">
+                            <label for="chooseRole">Role:
+                                <select multiple size="2" name="chooseRole" class="form-control"
+                                        style="text-align: center; margin-left: auto; margin-right: auto; width: 340px">
+                                    <option th:each="role : ${roles}" th:value="${role}"
+                                            th:text="${role.getName().substring(5)}">
                                     </option>
                                 </select>
                             </label>
