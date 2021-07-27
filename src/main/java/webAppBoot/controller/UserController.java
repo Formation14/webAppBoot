@@ -39,12 +39,6 @@ public class UserController {
         return "admin/list";
     }
 
-//    @GetMapping("/admin/new")
-//    public String newUser(@ModelAttribute("user") User user, Model model) {
-//        model.addAttribute("roles", roleService.getAllRoles());
-//        return "admin/new";
-//    }
-
     @PostMapping("/admin")
     public String create(@ModelAttribute("user") User user,
                          @RequestParam("chooseRole") String[] chooseRole) {
@@ -53,14 +47,7 @@ public class UserController {
         userService.addUser(user);
         return "redirect:/admin";
     }
-
-//    @GetMapping("/admin/{id}/edit")
-//    public String edit(Model model, @PathVariable("id") Long id) {
-//        model.addAttribute("user", userService.getUserById(id));
-//        model.addAttribute("roles", roleService.getAllRoles());
-//        return "admin/edit";
-//    }
-
+    
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("addUser") User user,
                          @PathVariable("id") Long id,

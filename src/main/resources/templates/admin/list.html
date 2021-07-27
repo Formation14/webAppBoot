@@ -83,7 +83,6 @@
                                         <th>Name</th>
                                         <th>Age</th>
                                         <th>Email</th>
-                                        <th>Password</th>
                                         <th>Role</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -95,8 +94,8 @@
                                         <td th:text="${user.name}"></td>
                                         <td th:text="${user.age}"></td>
                                         <td th:text="${user.email}"></td>
-                                        <td th:text="${user.password}"></td>
-                                        <td th:text="${user.roles}"></td>
+                                        <td th:each="roleInList : ${user.getRoles()}"
+                                        th:text="${#strings.substring(roleInList.getName(),5)}"></td>
 
                                         <td><a type="button" class="btn btn-primary" data-toggle="modal"
                                                th:attr="data-target='#edit' + ${user.getId()}">Edit</a>
@@ -297,16 +296,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="passwordDel" class="col-form-label">Password</label>
-                            <input type="text" class="form-control mb-6 col-8" disabled
-                                   id="passwordDel"
-                                   name="password"
-                                   th:value="${user.getPassword()}">
-                        </div>
-
-                        <div class="form-group">
                             <label for="chooseRole">Role:
-                                <select multiple size="2" name="chooseRole" class="form-control"
+                                <select multiple size="2" name="chooseRole" class="form-control" disabled
                                         style="text-align: center; margin-left: auto; margin-right: auto; width: 340px">
                                     <option th:each="role : ${roles}" th:value="${role}"
                                             th:text="${role.getName().substring(5)}">
