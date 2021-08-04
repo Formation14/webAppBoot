@@ -9,13 +9,13 @@ $(document).ready(function() {
                     url: '/api/add',
                     type: 'POST',
                     data: JSON.stringify(user),
-                    // contentType: "application/json; charset=utf-8",
+                    contentType: "application/json; charset=utf-8",
                     success: callback
                 });
             },
             deleteUser: function (id, callback) {
                 $.ajax({
-                    url: '/api/delete/' + id,
+                    url: '/api/' + id,
                     type: 'DELETE',
                     success: callback
                 });

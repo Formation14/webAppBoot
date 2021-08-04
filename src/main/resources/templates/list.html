@@ -68,16 +68,17 @@
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <div class="tab-content">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <b>All Users</b>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table table-striped border">
-                                                <thead>
-                                                <tr>
+                            <div aria-labelledby="nav-home-tab" class="tab-pane fade show active" id="nav-home"
+                                 role="tabpanel">
+                                <div class="list-group">
+                                    <a class="list-group-item list-group-item-light">All Users</a>
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <table class="table table-striped table-responsive-md">
+                                            <thead>
+                                            <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Age</th>
@@ -85,17 +86,15 @@
                                                 <th>Role</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody
-                                                            id="all-users-in-admin-panel">
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                 </div>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="all-users-in-admin-panel">
 
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                             <div aria-labelledby="nav-profile-tab" class="tab-pane fade" id="nav-profile"
                                  role="tabpanel">
 

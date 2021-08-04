@@ -10,7 +10,7 @@ import webAppBoot.models.User;
 import webAppBoot.service.UserService;
 
 @RestController
-@RequestMapping("/list")
+@RequestMapping("/api")
 public class UserRestController {
 
     private final UserService userService;
@@ -20,19 +20,19 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<User>> showAllUser() {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("edit")
     public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam Long id) {
         userService.updateUser(id,user);
         return new ResponseEntity<>(user, HttpStatus.OK);
