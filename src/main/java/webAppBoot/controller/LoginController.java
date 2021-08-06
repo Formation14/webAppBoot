@@ -34,13 +34,13 @@ public class LoginController {
 
     @GetMapping(value = "/list")
     public String index(Model model, Principal principal) {
-        model.addAttribute("autUser", userService.getUserByName(principal));
+        model.addAttribute("autUser", userService.getUserByName(principal.getName()));
         model.addAttribute("allRoles", roleService.getAllRoles());
-        return "list";
+        return "/list";
     }
 
-//    @GetMapping
-//    public String redirectToListPage() {
-//        return "redirect:/list";
-//    }
+    @GetMapping
+    public String redirectToListPage() {
+        return "redirect:/list";
+    }
 }

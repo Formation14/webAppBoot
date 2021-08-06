@@ -1,13 +1,11 @@
 package webAppBoot.service;
 
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import webAppBoot.models.User;
-
 import java.security.Principal;
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
+public interface UserService{
     void addUser(User user);
 
     List<User> getAllUsers();
@@ -18,9 +16,7 @@ public interface UserService extends UserDetailsService {
 
     User getUserById(Long id);
 
-    User getUserByName(Principal principal);
+    User getUserByName(String username);
 
     void creatDefaultUser();
-
-    void chooseRole(User user, String[] chooseRole);
 }

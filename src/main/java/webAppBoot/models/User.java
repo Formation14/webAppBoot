@@ -1,8 +1,6 @@
 package webAppBoot.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +23,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String username;
 
     private int age;
 
@@ -41,14 +39,14 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
 
-    public static UserDetails fromUser(User user) {
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),user.getPassword(),
-                user.isAccountNonExpired(), user.isCredentialsNonExpired(),
-                user.isEnabled(), user.isAccountNonLocked(),
-                user.getRoles()
-        );
-    }
+//    public static UserDetails fromUser(User user) {
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getUsername(),user.getPassword(),
+//                user.isAccountNonExpired(), user.isCredentialsNonExpired(),
+//                user.isEnabled(), user.isAccountNonLocked(),
+//                user.getRoles()
+//        );
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -56,9 +54,8 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getUsername()
-    {
-        return getName();
+    public String getUsername() {
+        return username;
     }
 
     @Override

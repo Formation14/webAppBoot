@@ -1,6 +1,5 @@
 package webAppBoot.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import webAppBoot.models.User;
 import webAppBoot.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserRestController {
 
     private final UserService userService;
@@ -20,19 +19,19 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<User>> showAllUser() {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping("edit")
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam Long id) {
         userService.updateUser(id,user);
         return new ResponseEntity<>(user, HttpStatus.OK);
