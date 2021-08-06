@@ -42,11 +42,16 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
-
-    @JsonProperty("roles")
     public Set<String> getRoleTitles() {
         return roles.stream()
                 .map(Role::getRole)
+                .collect(Collectors.toSet());
+    }
+
+    @JsonProperty("roles")
+    public void setRoleTitles(Set<Long> roleTitles) {
+        roles = roleTitles.stream()
+                .map(id -> new Role(id, null))
                 .collect(Collectors.toSet());
     }
 
