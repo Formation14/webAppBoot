@@ -6,9 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "roles")
@@ -17,19 +19,15 @@ public class Role implements GrantedAuthority {
     @GeneratedValue
     private Long id;
 
-    private String name;
-
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    private Set<User> userSet = new HashSet<>();
+    private String role;
 
     @Override
     public String toString() {
-        return name;
+        return role.substring(5);
     }
 
     @Override
     public String getAuthority() {
-        return getName();
+        return getRole();
     }
 }

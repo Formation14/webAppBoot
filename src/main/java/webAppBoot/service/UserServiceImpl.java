@@ -39,17 +39,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public void updateUser(Long id, User user) {
-        User u = getUserById(id);
-        u.setUsername(user.getUsername());
-        u.setAge(user.getAge());
-        u.setEmail(u.getEmail());
-        u.setPassword(passwordEncoder.encode(user.getPassword()));
-        u.setRoles(user.getRoles());
-        userRepository.save(u);
-    }
-
 
     @Override
     public User getUserById(Long id) {

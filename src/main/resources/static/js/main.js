@@ -30,6 +30,9 @@ $(function () {
         tbody.empty();
         api.getUsers(function (users) {
             users.forEach(function (user) {
+                let mass='';
+                user.roles.forEach(s=>mass+=s.replace('ROLE_',' '))
+
                 let tr = $('<tr/>')
                     .append($('<td/>').text(user.id))
                     .append($('<td/>').text(user.username))
@@ -37,7 +40,7 @@ $(function () {
                     .append($('<td/>').text(user.email))
                     .append($('<td/>').text(user.password).hide())
                     .append($('<td/>')
-                        .append($('<span/>').text(user.roles.join(', '))))
+                        .append($('<span/>').text(mass)))
                     .append($('<td/>')
                         .append('<button class="btn btn-info btn-sm editBtn" data-target="#editModal" data-toggle="modal" type="button">Edit</button>'))
                     .append($('<td/>')
@@ -49,7 +52,7 @@ $(function () {
                 let editModal = $('#editModal');
                 let tdArray = $(this).parent().parent().find('td');
                 editModal.find('#userId').val(tdArray[0].innerText);
-                editModal.find('#username').val(tdArray[1].innerText);
+                editModal.find('#userUsername').val(tdArray[1].innerText);
                 editModal.find('#userAge').val(tdArray[2].innerText);
                 editModal.find('#userEmail').val(tdArray[3].innerText);
                 editModal.find('#userPassword').val(tdArray[4].innerText);
@@ -78,13 +81,13 @@ $(function () {
             $('.deleteBtn').click(function () {
                 let deleteModal = $('#deleteModal');
                 let tdArray = $(this).parent().parent().find('td');
-                deleteModal.find('#idDelete').val(tdArray[0].innerText);
+                deleteModal.find('#userIdDelete').val(tdArray[0].innerText);
                 deleteModal.find('#usernameDelete').val(tdArray[1].innerText);
                 deleteModal.find('#ageDelete').val(tdArray[2].innerText);
                 deleteModal.find('#emailDelete').val(tdArray[3].innerText);
-                deleteModal.find('#passwordDelete').val(tdArray[4].innerText).hide();
+                deleteModal.find('#userPasswordDelete').val(tdArray[4].innerText).hide();
                 let userRoles = tdArray[5].innerText.split(", ");
-                deleteModal.find('#rolesDelete option').each(function () {
+                deleteModal.find('#userRolesDelete option').each(function () {
                     $(this).attr('selected', userRoles.includes($(this).text()));
                 });
                 let deleteButton = deleteModal.find('#userDeleteButton');
@@ -113,7 +116,7 @@ $(function () {
                     api.saveUser(user, function (responseUser) {
                         addUser.find('input').val('');
                         updateUsers();
-                        $('#nav-home-tab').tabIndex('show');
+                        $('#nav-home-tab').tab('show');
                     });
                 });
             });

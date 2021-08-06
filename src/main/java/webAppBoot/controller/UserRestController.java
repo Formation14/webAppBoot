@@ -32,8 +32,8 @@ public class UserRestController {
     }
 
     @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam Long id) {
-        userService.updateUser(id,user);
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:5px
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>ADMIN PANEL</title>
@@ -13,7 +14,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid collapse navbar-collapse">
             <a class="navbar-brand" href="#" th:utext="${'Hello, ' + autUser.username + ' with roles: ' +
-        #strings.listJoin(autUser.getRoles(), ', ')}">Username</a>
+        #strings.setSubstring(autUser.getRoleTitles(),5)}">Username</a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link ml-auto" href="/logout">Logout</a>
@@ -27,9 +28,9 @@
         <div class="col col-2 bg-white vh-100 text-center">
             <div class="nav flex-column nav-pills bg-white" id="myTab">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link"
-                   th:classappend="${autUser.getRoles().contains('ROLE_ADMIN')} ? 'active' : ''"
+                   th:classappend="${autUser.getRoleTitles().contains('ROLE_ADMIN')} ? 'active' : ''"
                    data-bs-toggle="pill" href="#adminPanelPage">Admin</a>
-                <a class="nav-link" th:classappend="${!autUser.getRoles().contains('ROLE_ADMIN')} ? 'active' : ''"
+                <a class="nav-link" th:classappend="${!autUser.getRoleTitles().contains('ROLE_ADMIN')} ? 'active' : ''"
                    data-bs-toggle="pill" href="#userPage">User</a>
             </div>
         </div>
@@ -37,7 +38,7 @@
             <div class="tab-content">
 
                 <div class="tab-pane fade"
-                     th:classappend="${autUser.getRoles().contains('ROLE_ADMIN')} ? 'show active' : ''"
+                     th:classappend="${autUser.getRoleTitles().contains('ROLE_ADMIN')} ? 'show active' : ''"
                      id="adminPanelPage" role="tabpanel">
                     <h2>Admin panel</h2>
                     <div class="shadow-sm p-3 mb-5 bg-white rounded">
@@ -63,7 +64,7 @@
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Name</th>
+                                                <th>Username</th>
                                                 <th>Age</th>
                                                 <th>E-mail</th>
                                                 <th>Role</th>
@@ -88,12 +89,11 @@
                                         <form class="text-center fw-bold">
 
                                             <div class="form-group">
-                                                <label class="col-form-label" for="username1">First
-                                                    name</label>
+                                                <label class="col-form-label"
+                                                       for="username1">Username</label>
                                                 <input class="form-control" id="username1"
                                                        name="username" type="text">
                                             </div>
-
 
                                             <div class="form-group">
                                                 <label class="col-form-label"
@@ -104,8 +104,8 @@
 
                                             <div class="form-group">
                                                 <label class="col-form-label"
-                                                       for="userEmail1">E-mail</label>
-                                                <input class="form-control" id="userEmail1"
+                                                       for="email1">E-mail</label>
+                                                <input class="form-control" id="email1"
                                                        name="email" type="text">
                                             </div>
 
@@ -121,10 +121,9 @@
                                                 <select class="custom-select form-control"
                                                         multiple name="roles" id="roleAdd">
                                                     <option th:each="oneRole: ${allRoles}"
-                                                            th:selected="${oneRole.name == 'ROLE_USER'}"
-                                                            th:text="${oneRole.name}"
-                                                            th:value="${oneRole.id}"
-                                                    >all roles
+                                                            th:selected="${oneRole.role == 'ROLE_USER'}"
+                                                            th:text="${oneRole.role.substring(5)}"
+                                                            th:value="${oneRole.id}">
                                                     </option>
                                                 </select>
                                             </div>
@@ -142,7 +141,7 @@
                 </div>
 
                 <div class="tab-pane fade"
-                     th:classappend="${!autUser.getRoles().contains('ROLE_ADMIN')} ? 'show active' : ''"
+                     th:classappend="${!autUser.getRoleTitles().contains('ROLE_ADMIN')} ? 'show active' : ''"
                      id="userPage" role="tabpanel">
                     <div class="shadow-sm p-3 mb-5 bg-white rounded">
                         <h2>User information-page</h2>
@@ -167,7 +166,7 @@
                                     <td th:text="*{age}">age</td>
                                     <td th:text="*{email}">username</td>
                                     <td>
-                                        <span th:text="${#strings.listJoin(autUser.getRoles(), ', ')}">role</span>
+                                        <span th:text="${#strings.listJoin(autUser.roles, ', ')}">role</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -208,8 +207,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-form-label" for="username">Name</label>
-                        <input class="form-control" id="username"
+                        <label class="col-form-label"
+                               for="userUsername">User name</label>
+                        <input class="form-control" id="userUsername"
                                name="username" type="text" value="">
                     </div>
 
@@ -221,12 +221,6 @@
                                size="3" type="number" value="">
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-form-label"
-                               for="userEmail">E-mail</label>
-                        <input class="form-control" id="userEmail"
-                               name="email" type="text" value="">
-                    </div>
 
                     <div class="form-group">
                         <label class="col-form-label" for="userPassword">Password</label>
@@ -240,7 +234,7 @@
                                 id="userRoles" multiple name="roles">
                             <option
                                     th:each="oneRole: ${allRoles}"
-                                    th:text="${oneRole.name}"
+                                    th:text="${oneRole.role.substring(5)}"
                                     th:value="${oneRole.id}">all roles
                             </option>
                         </select>
@@ -275,24 +269,24 @@
                     <button aria-label="Close" class="close"
                             data-dismiss="modal"
                             type="button">
-                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body mx-auto text-center fw-bold">
 
                     <div class="form-group">
                         <label class="col-form-label"
-                               for="idDelete">ID</label>
+                               for="userIdDelete">ID</label>
                         <input class="form-control" name="id"
-                               readonly id="idDelete" value="" type="text">
+                               readonly id="userIdDelete" value="" type="text">
                     </div>
 
                     <div class="form-group">
-                        <label class="col-form-label" for="usernameDelete">First
-                            name</label>
-                        <input class="form-control" name="name" readonly
+                        <label class="col-form-label"
+                               for="usernameDelete">User name</label>
+                        <input class="form-control" name="username" readonly
                                id="usernameDelete" value="" type="text">
                     </div>
+
 
                     <div class="form-group">
                         <label class="col-form-label"
@@ -303,20 +297,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-form-label"
-                               for="emailDelete">Username</label>
+                        <label class="col-form-label" for="emailDelete">E-mail</label>
                         <input class="form-control" name="email" readonly
                                id="emailDelete" value="" type="text">
                     </div>
 
                     <div class="form-group">
                         <label class="col-form-label"
-                               for="rolesDelete">Role</label>
+                               for="userRolesDelete">Role</label>
                         <select class="custom-select form-control" multiple
-                                name="roles" readonly id="rolesDelete">
+                                name="roles" readonly id="userRolesDelete">
                             <option selected disabled
                                     th:each="oneRole: ${allRoles}"
-                                    th:text="${oneRole.name}"
+                                    th:text="${oneRole.role.substring(5)}"
                                     th:value="${oneRole.id}">all roles
                             </option>
                         </select>

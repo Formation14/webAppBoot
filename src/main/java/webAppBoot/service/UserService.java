@@ -2,7 +2,6 @@ package webAppBoot.service;
 
 
 import webAppBoot.models.User;
-import java.security.Principal;
 import java.util.List;
 
 public interface UserService{
@@ -11,8 +10,6 @@ public interface UserService{
     List<User> getAllUsers();
 
     void deleteUser(Long id);
-
-    void updateUser(Long id, User updatedUser);
 
     User getUserById(Long id);
 

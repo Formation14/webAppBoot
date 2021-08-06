@@ -34,19 +34,19 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public Role getRoleByName(String name) {
-        return getAllRoles().stream().filter(role -> role.getName().equals(name)).findFirst().orElse(null);
+        return getAllRoles().stream().filter(role -> role.getRole().equals(name)).findFirst().orElse(null);
     }
 
     public void setAdminRoleDefault() {
 
         Role adminRole = new Role();
-        adminRole.setName(ROLE_ADMIN);
+        adminRole.setRole(ROLE_ADMIN);
         roleRepository.save(adminRole);
     }
 
     public void setUserRoleDefault() {
         Role userRole = new Role();
-        userRole.setName(ROLE_USER);
+        userRole.setRole(ROLE_USER);
         roleRepository.save(userRole);
     }
 
