@@ -30,8 +30,8 @@ $(function () {
         tbody.empty();
         api.getUsers(function (users) {
             users.forEach(function (user) {
-                let mass='';
-                user.roles.forEach(s=>mass+=s.replace('ROLE_',' '))
+                let mass = '';
+                user.roles.forEach(s => mass += s.replace('ROLE_', ' '))
 
                 let tr = $('<tr/>')
                     .append($('<td/>').text(user.id))

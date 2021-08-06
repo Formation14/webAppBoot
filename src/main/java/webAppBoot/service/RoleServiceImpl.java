@@ -4,13 +4,14 @@ import org.springframework.stereotype.Service;
 import webAppBoot.models.Role;
 import webAppBoot.models.User;
 import webAppBoot.repository.RoleRepository;
+
 import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private static final String ROLE_USER ="ROLE_USER";
-    private static final String ROLE_ADMIN ="ROLE_ADMIN";
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     private final RoleRepository roleRepository;
 
