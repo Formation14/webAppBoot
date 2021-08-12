@@ -39,22 +39,8 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-
-    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
-    public Set<String> getRoleTitles() {
-        return roles.stream()
-                .map(Role::getRole)
-                .collect(Collectors.toSet());
-    }
-
-    @JsonProperty("roles")
-    public void setRoleTitles(Set<Long> roleTitles) {
-        roles = roleTitles.stream()
-                .map(id -> new Role(id, null))
-                .collect(Collectors.toSet());
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

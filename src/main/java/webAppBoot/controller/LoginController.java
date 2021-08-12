@@ -3,7 +3,9 @@ package webAppBoot.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import webAppBoot.models.User;
 import webAppBoot.service.RoleService;
 import webAppBoot.service.UserService;
 
@@ -43,5 +45,21 @@ public class LoginController {
     @GetMapping
     public String redirectToListPage() {
         return "redirect:/list";
+    }
+
+    @GetMapping("/user")
+    public String showUserByIdForUser(Principal principal, Model model) {
+        User user = userService.getUserByName(principal.getName());
+        model.addAttribute("user", user);
+        return "/user";
+    }
+
+    @GetMapping(value = "/admin")
+    public String showAllUsers(ModelMap model) {
+//        List<User> list = userService.getAllUsers();
+//        model.addAttribute("allUsers", list);
+//        model.addAttribute("addUser", new User());
+//        model.addAttribute("allRoles", roleService.getAllRoles());
+        return "list";
     }
 }

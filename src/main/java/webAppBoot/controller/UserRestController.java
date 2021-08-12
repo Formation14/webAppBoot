@@ -11,7 +11,7 @@ import webAppBoot.models.User;
 import webAppBoot.service.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserRestController {
 
     private final UserService userService;
@@ -21,26 +21,30 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<User>> showAllUser() {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getOneUser(@PathVariable("id") long id) {
+        User user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
-    @PostMapping
+    @PostMapping("newUser")
     public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        userService.addUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    @PutMapping("edit")
+    public ResponseEntity<User> update(@RequestBody User user) {
+       return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void delete(@PathVariable("id") long id) {
         userService.deleteUser(id);
     }
 
