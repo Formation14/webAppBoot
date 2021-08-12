@@ -133,11 +133,11 @@
 
                                         <div class="form-group">
                                             <label>Role</label>
-                                                <select multiple size="2" name="select_role" class="form-control"
-                                                        id="selectRole">
-                                                    <option name="ROLE_ADMIN" value="1">ADMIN</option>
-                                                    <option name="ROLE_USER" value="2" selected="selected">USER</option>
-                                                </select>
+                                            <select multiple size="2" name="select_role" class="form-control"
+                                                    id="selectRole">
+                                                <option name="ROLE_ADMIN" value="1">ADMIN</option>
+                                                <option name="ROLE_USER" value="2" selected="selected">USER</option>
+                                            </select>
                                         </div>
                                         <button type="button" class="btn btn-success AddBtn">
                                             Add new user
@@ -157,62 +157,62 @@
 </div>
 
 <div class="editUser" align="center">
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit user window</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-auto text-center fw-bold">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit user window</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-auto text-center fw-bold">
 
-                        <div class="form-group">
+                    <div class="form-group">
                         <label class="col-form-label" for="idEd">ID</label>
                         <input class="form-control" id="idEd"
                                name="id" readonly type="text" value="">
-                        </div>
+                    </div>
 
-                        <div class="form-group">
+                    <div class="form-group">
                         <label for="usernameEd" class="col-form-label">User name</label>
                         <input type="text" class="form-control" id="usernameEd" name="username" value="">
-                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="col-form-label"
-                                   for="ageEd">Age</label>
-                            <input class="form-control" id="ageEd"
-                                   max="128" min="1" name="age" size="3" type="number" value="">
-                        </div>
+                    <div class="form-group">
+                        <label class="col-form-label"
+                               for="ageEd">Age</label>
+                        <input class="form-control" id="ageEd"
+                               max="128" min="1" name="age" size="3" type="number" value="">
+                    </div>
 
-                        <div class="form-group">
+                    <div class="form-group">
                         <label for="emailEd" class="col-form-label">Email</label>
                         <input type="text" class="form-control" id="emailEd" name="email" value="">
-                        </div>
+                    </div>
 
-                        <div class="form-group">
+                    <div class="form-group">
                         <label for="passwordEd" class="col-form-label">Password</label>
                         <input type="text" class="form-control" id="passwordEd" name="password" value="">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select multiple size="2" name="select_role" class="form-control"
-                                    id="selectRoleEd">
-                                <option name="ROLE_ADMIN" value="1">ADMIN</option>
-                                <option name="ROLE_USER" value="2" selected="selected">USER</option>
-                            </select>
-                        </div>
-
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary editButton" value="Edit">Edit</button>
+
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select multiple size="2" name="select_role" class="form-control"
+                                id="selectRoleEd">
+                            <option name="ROLE_ADMIN" value="1">ADMIN</option>
+                            <option name="ROLE_USER" value="2" selected="selected">USER</option>
+                        </select>
                     </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary editButton" value="Edit">Edit</button>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
 
