@@ -23,16 +23,20 @@ $(document).ready(function () {
 });
 
 function createTableRow(u) {
-    let userRole = "";
-    for (let i = 0; i < u.roles.length; i++) {
-        userRole += " " + u.roles[i].role.replace('ROLE_', '');
+    let mass = ''
+    if (u.roles.length == 2) {
+        mass = u.roles[0].role;
+        mass += u.roles[1];
+    } else {
+        mass = u.roles[0];
     }
+
     return `<tr id="user_table_row">
             <td>${u.id}</td>
             <td>${u.username}</td>
             <td>${u.age}</td>
             <td>${u.email}</td>
-            <td>${userRole}</td>
+            <td>${mass.toString().replaceAll('ROLE_', ' ')}</td>
             <td>
             <a  href="/api/${u.id}" class="btn btn-info eBtn" >Edit</a>
             </td>
@@ -57,11 +61,12 @@ function restartAllUser() {
 
     fetch("api/users")
         .then((response) => {
-            response.json().then(data => data.forEach(function (item, i, data) {
-                let TableRow = createTableRow(item);
-                UserTableBody.append(TableRow);
+            response.json().then(
+                data => data.forEach(function (item) {
+                    let TableRow = createTableRow(item);
+                    UserTableBody.append(TableRow);
 
-            }));
+                }));
         }).catch(error => {
         console.log(error);
     });

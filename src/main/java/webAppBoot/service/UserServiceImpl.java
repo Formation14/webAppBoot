@@ -59,8 +59,8 @@ public class UserServiceImpl implements UserService {
         admin.setEmail("paveltis@tut.by");
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
-        admin.getRoles().add(roleService.getUserRole());
         admin.getRoles().add(roleService.getAdminRole());
+        admin.getRoles().add(roleService.getUserRole());
 
         User u = new User();
         u.setAge(15);

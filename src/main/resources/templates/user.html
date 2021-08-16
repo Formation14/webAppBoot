@@ -31,10 +31,10 @@
 
                         <h5>with roles:
                             <span sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                                ROLE_ADMIN
+                                ADMIN
                             </span>
                             <span sec:authorize="hasAnyRole('ROLE_USER')">
-                                ROLE_USER
+                                USER
                             </span>
                         </h5>
                     </li>
@@ -79,12 +79,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user : ${user}">
-                                <td th:text="${user.id}"></td>
+                            <tr th:each=" u : ${user}">
+                                <td th:text="${u.id}"></td>
                                 <td th:text="${user.username}"></td>
                                 <td th:text="${user.age}"></td>
                                 <td th:text="${user.email}"></td>
-                                <td th:text="${#strings.setReplace(user.getRoles(),'ROLE_','')}"></td>
+                                <td th:text="${#strings.setReplace(u.roles,'ROLE_',' ') + ' '}"></td>
                             </tr>
                             </tbody>
                         </table>

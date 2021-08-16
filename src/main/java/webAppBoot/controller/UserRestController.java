@@ -20,7 +20,7 @@ public class UserRestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> showAllUser() {
+    public ResponseEntity<List<User>> getAllUser() {
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
@@ -37,12 +37,12 @@ public class UserRestController {
     }
 
     @PutMapping("edit")
-    public ResponseEntity<User> update(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
        return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") long id) {
+    public void deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
     }
 
